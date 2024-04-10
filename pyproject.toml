@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "link-cutter"
+version = "0.1.0"
+description = ""
+authors = ["Ivan Matveev <ivan.matveev@alemira.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.110.1"
+uvicorn = "^0.29.0"
+pydantic = "^2.6.4"
+postgres = "^4.0"
+sqlalchemy = "^2.0.29"
+alembic = "^1.13.1"
+shortuuid = "^1.0.13"
+ruff = "^0.3.5"
+mypy = "^1.9.0"
+pydantic-settings = "^2.2.1"
+python-dotenv = "^1.0.1"
+asyncpg = "^0.29.0"
+greenlet = "^3.0.3"
+loguru = "^0.7.2"
+redis = "5.0.1"
+setuptools = "^69.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
