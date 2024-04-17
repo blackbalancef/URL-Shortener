@@ -49,11 +49,17 @@ Copy .env.local to .env
 
 1. Install dependencies with poetry `poetry install`
 2. Change in .env file DATABASE_HOST=localhost and REDIS_HOST=localhost
-2. Run export command to set environment variables `export $(cat .env | xargs)`
-3. Run debug.py file in debug/run mode in your IDE
+3. Run `docker compose up docker-compose up db redis redis-commander`
+4. Run export command to set environment variables `export $(cat .env | xargs)`
+5. Run debug.py file in debug/run mode in your IDE
 
-## Documentation
+## App and Documentation 
 
-#### http://localhost:8000/docs to see the API documentation
-#### http://localhost:8000/redoc to see the API documentation in redoc format
-#### http://localhost:8081 to see redis commander interface
+### Fastapi
+
+http://localhost:8000/docs to see the API documentation
+http://localhost:8000/redoc to see the API documentation in redoc format
+
+### Redis Comander
+
+http://localhost:8081 to see redis commander interface

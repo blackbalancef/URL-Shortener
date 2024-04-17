@@ -8,7 +8,7 @@ if __name__ == "__main__":
     load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
 
     uvicorn.run(
-        "src.main:app",
+        "app.main:app",
         host="0.0.0.0",
         port=8000,
         reload=True,

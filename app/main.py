@@ -5,14 +5,16 @@ from starlette.responses import JSONResponse
 
 
 from redis_cache.client import redis_client
-from src.link.api_router import link_router
-from src.exception import NotFoundError
-from src.stats.api_router import stats_router
-from src.stats.background_task import update_popular_links_task
+from app.link.api_router import link_router
+from app.exception import NotFoundError
+from app.settings import app_settings
+from app.stats.api_router import stats_router
+from app.stats.background_task import update_popular_links_task
 
 app = FastAPI()
 
-app.include_router(link_router, prefix="/link")
+
+app.include_router(link_router, prefix=app_settings.LINK_ROUTER)
 app.include_router(stats_router, prefix="/stats")
 
 

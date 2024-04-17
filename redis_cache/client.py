@@ -6,6 +6,7 @@ import redis.asyncio as aioredis
 from loguru import logger
 
 from redis_cache.settings import redis_settings, RedisSettings
+from app.exception import NotFoundError
 
 
 class RedisClient:
@@ -20,9 +21,11 @@ class RedisClient:
         self.redis = aioredis.from_url(
             self.redis_url, encoding="utf-8", decode_responses=True
         )
+        logger.info("Redis successfully connected")
 
     async def close(self):
         self.redis.close()
+        logger.info("Redis shut down")
 
     async def insert_cut_log(self, short_link: str, original_link: str, client_ip: str):
         time_stamp = int(datetime.now(tz=UTC).timestamp())
@@ -67,9 +70,6 @@ class RedisClient:
                 return stats_dict.get("original_url")
         return None
 
-    from collections import defaultdict
-    import json
-
     async def get_link_visit_stats(self, short_link: str) -> dict[str, int]:
         pattern = f"{short_link}:*"
 
@@ -79,8 +79,7 @@ class RedisClient:
             cursor, keys = await self.redis.scan(cursor, match=pattern, count=100)
             matches.extend(keys)
         if not matches:
-            return None
-        # Соберите данные по каждому ключу
+            raise NotFoundError(id_=short_link, object_="Link")
         visits = []
         for visit_key in matches:
             visit_data = await self.redis.hgetall(visit_key)
@@ -89,7 +88,7 @@ class RedisClient:
         stats = {
             "total_visits": len(visits),
             "visits_by_date": defaultdict(int),
-            "visits_by_hour": defaultdict(int)
+            "visits_by_hour": defaultdict(int),
         }
 
         for visit in visits:
@@ -106,7 +105,6 @@ class RedisClient:
         stats["visits_by_hour"] = dict(stats["visits_by_hour"])
 
         return stats
-
 
 
 redis_client = RedisClient(redis_settings)

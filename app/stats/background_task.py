@@ -20,6 +20,7 @@ async def update_popular_links() -> None:
             "visits", time_delta_ago_timestamp, "+inf"
         )
         if not visits:
+            logger.info("Popular links are empty")
             return
         popular_links: dict[str, dict] = {}
         for visit_key in visits:

@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase
 
-from src.exception import NotFoundError
+from app.exception import NotFoundError
 
 Model = TypeVar("Model", bound=DeclarativeBase)
 
